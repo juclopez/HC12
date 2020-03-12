@@ -14,7 +14,7 @@ inst=open('salida.lst','w')
 
 
 err=open('P4ASM.txt','w')
-ar = open("algo.txt", "w")
+
 bandera=0
 
 caracteres=['|','!','#','$','%','&','/','(',')','=','¡','¿',';','.',':','-','{','[','+','*',']','}']
@@ -389,7 +389,7 @@ def instruc(cont,linea):
                     
                     inst.write(tamDis(str(direccionamiento(palabras[0],palabras[1]))))
                 
-                    inst.write(tamDis(str(cob) + tamDis(str(cobopValidado))))
+                    inst.write(tamDis(str(cob) + ' ' +tamDis(str(cobopValidado))))
                     inst.write('\n')
                     errordeoperando(palabras[0],palabras[1])
 
@@ -416,7 +416,7 @@ def instruc(cont,linea):
                     
                     inst.write(tamDis(str(direccionamiento(palabras[1],'NULL'))))
                     
-                    inst.write(tamDis(str(cob) + tamDis(str(cobopValidado))))
+                    inst.write(tamDis(str(cob) + ' ' +tamDis(str(cobopValidado))))
                     inst.write('\n')
                     errordeoperando(palabras[1],'NULL')
                     
@@ -449,7 +449,7 @@ def instruc(cont,linea):
                 
                 inst.write(tamDis(palabras[2]))
                 
-                inst.write(tamDis(str(cob)) +tamDis(str(cobopValidado)) + '\n')
+                inst.write(tamDis(str(cob)) + ' ' +tamDis(str(cobopValidado)) + '\n')
 
             
                 #enbuscadelaverdad(pali[0])
@@ -521,7 +521,5 @@ while True:
     instruc(cont,linea)
 archivo.close()
 inst.close()
-
-ar.close()
 
 #input()
