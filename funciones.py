@@ -7,7 +7,15 @@ def relativos8():
             rel.append(l[0])
     archivo.close()
     return rel
-
+def relativos9():
+    rel = []
+    archivo = open("TABOP.txt")
+    for linea in archivo:
+        l = linea.split("|")
+        if l[2] == "REL" and l[6].split("\n")[0] == "3":
+            rel.append(l[0])
+    archivo.close()
+    return rel
 def relativos16():
     rel = []
     archivo = open("TABOP.txt")

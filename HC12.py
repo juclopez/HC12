@@ -1,9 +1,9 @@
 from funciones import *
 #-----------------------------------------------Mnemonicos-------------------------------------------------------------------------
 
-mnemonico = ['ORG','equ','EQU','LDAA','SWI','DS.b','sWI','sWi','BRA','ADCA','ABA','LBRA','db', 'dc.b', 'fcb','DB', 'DC.B', 'FCB','dw', 'dc.w', 'fdb','DW', 'DC.W', 'FDB','DS','DS.B','RMB','DS.W','RMW','fcc','FCC', 'BSZ', 'bsz', 'ZMB', 'zmb','FCB','fcb',
+mnemonico = ['IBEQ','ibeq','ORG','equ','EQU','LDAA','SWI','DS.b','sWI','sWi','BRA','ADCA','ABA','LBRA','db', 'dc.b', 'fcb','DB', 'DC.B', 'FCB','dw', 'dc.w', 'fdb','DW', 'DC.W', 'FDB','DS','DS.B','RMB','DS.W','RMW','fcc','FCC', 'BSZ', 'bsz', 'ZMB', 'zmb','FCB','fcb',
 'end', 'END','FILL','fill', 'ADDD','addd','adda','ADDA','addb','ADDB','ANDA','anda','ANDB','andb','andc','ANDC','ASL','asl','asla','ASLA','aslb','ASLB','asld','ASLD','asr','ASR','asra','ASRA','asrb','ASRB','BCC','bcc','bclr','BCLR','bcs','BCS','BEQ','beq','BGE','bge','BGND','bgnd',
-'Jmp','JMP','jsr','JSR','ldaa','LDAA','LDAB','ldab','lddd','LDDD','LBCC','lbcc','lbcs','LBCS','LBEQ','lbeq','lbge','LBGE','lbgt','LBGT','LBHI','lbhi','LBHS','lbhs','lble','LBLS', 'START','start','ZMB','zmb','BNE','bne','bcs','BCS','LBNE','lbne',]
+'Jmp','JMP','jsr','JSR','ldaa','LDAA','LDAB','ldab','lddd','LDDD','LBCC','lbcc','lbcs','LBCS','LBEQ','lbeq','lbge','LBGE','lbgt','LBGT','LBHI','lbhi','LBHS','lbhs','lble','LBLS', 'START','start','ZMB','zmb','BNE','bne','LBNE','lbne',]
 mnem=len(mnemonico)
 conloc=0
 cont=0
@@ -42,6 +42,7 @@ def directivasBW(direct, op):
                 car = var[1:]
                 res += hex(ord(car))[2:] + " "
         return res
+    
     elif(direct == "DC.W"):
         if(op == ""):
             return "00 00"
@@ -97,6 +98,7 @@ def conloco(codop,operando,etiqueta, op):
     global conloc
     Dir = ["ORG", "END", "EQU", "START", "BSZ", "FILL", "ZMB", "org", "end", "equ", "start", "bsz", "fill", "zmb"]
     rel8 = relativos8()
+    rel9 = relativos9()
     rel16 = relativos16()
     if (codop == "DC.B" or codop == "DC.W" or codop == "FCC" or codop == "FCB" or codop == "FILL" ):
         pass
@@ -130,6 +132,8 @@ def conloco(codop,operando,etiqueta, op):
             conloc +=1
         else:
             conloc += int(operando)
+    elif codop == 'IBEQ':
+        conloc += 3
     elif codop == 'FILL':
         if(operando == 'NULL'):
             conloc +=1
@@ -139,6 +143,8 @@ def conloco(codop,operando,etiqueta, op):
         conloc += 3
     elif codop in rel8:
         conloc += 2
+    elif codop in rel9:
+        conloc += 3
     elif codop in rel16:
         conloc += 4
     elif codop == "START":
@@ -197,6 +203,8 @@ def direccionamiento(codop,operando):
 
 
     if codop in relativos8():
+        return 'REL'
+    if codop in relativos9():
         return 'REL'
     if codop in relativos16():
         return 'REL'
