@@ -7,7 +7,6 @@ mnemonico = ['ORG','equ','EQU','LDAA','SWI','DS.b','sWI','sWi','BRA','ADCA','ABA
 mnem=len(mnemonico)
 conloc=0
 cont=0
-#hola mundo
 #-------------------------------------------------------------------------------------------------------------------
 
 archivo=open('entrada.asm','r')
